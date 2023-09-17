@@ -746,9 +746,7 @@ a:focus {
   margin-left: 8%;
 }
 
-.gallery_section .gallery_container .box.b2 .img-box{
-  height: 108%;
-}
+
 
 .gallery_section .gallery_container .box.b3 {
   -webkit-box-pack: end;
@@ -757,9 +755,7 @@ a:focus {
           
 }
 
-.gallery_section .gallery_container .box.b3 .img-box {
-  height: 100%;
-}
+
 
 .gallery_section .gallery_container .box.b4 {
   -webkit-box-pack: end;
@@ -781,6 +777,7 @@ a:focus {
 
 .gallery_section .gallery_container .box .img-box img {
   width: 100%;
+  height: 100%;
 }
 
 .gallery_section .gallery_container .box .img-box h5 {
