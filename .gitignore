@@ -1,0 +1,9 @@
+*.pyc  
+*~  
+about.html
+base.html
+blog.html
+gallery.html
+home.html
+index2.html
+testimonial.html
