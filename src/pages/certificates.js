@@ -1,6 +1,6 @@
-import AnimatedText from "@/components/AnimatedText";
-import { GithubIcon } from "@/components/Icons";
-import Layout from "@/components/Layout";
+import AnimatedText from "src/components/AnimatedText";
+import { GithubIcon } from "src/components/Icons";
+import Layout from "src/components/Layout";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +31,7 @@ import iotIntro from "../../public/images/badges/iot-intro.png";
 import networkIntroCcna from "../../public/images/badges/network-intro-ccna.png";
 import python1 from "../../public/images/badges/python-1.png";
 import { motion } from "framer-motion";
-import TransitionEffect from "@/components/TransitionEffect";
+import TransitionEffect from "src/components/TransitionEffect";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/autoplay";

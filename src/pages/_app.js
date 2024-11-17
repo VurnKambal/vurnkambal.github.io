@@ -1,7 +1,7 @@
-import Footer from "@/components/Footer";
-import useTheme from "@/components/hooks/useTheme";
-import NavBar from "@/components/NavBar";
-import "@/styles/globals.css";
+import Footer from "src/components/Footer";
+import useTheme from "src/components/hooks/useTheme";
+import NavBar from "src/components/NavBar";
+import "src/styles/globals.css";
 import { AnimatePresence } from "framer-motion";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
