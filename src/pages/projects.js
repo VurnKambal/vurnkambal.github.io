@@ -1,6 +1,6 @@
-import AnimatedText from "@/components/AnimatedText";
-import { GithubIcon } from "@/components/Icons";
-import Layout from "@/components/Layout";
+import AnimatedText from "../components/AnimatedText";
+import { GithubIcon } from "../components/Icons";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import React from "react";
 import thesisInput from "../../public/images/projects/thesis-input.png";
 import blockchainInvocation from "../../public/videos/projects/blockchain-invocation-marketplace.mp4";
 import { motion } from "framer-motion";
-import TransitionEffect from "@/components/TransitionEffect";
+import TransitionEffect from "../components/TransitionEffect";
 
 const FramerImage = motion(Image);
 
