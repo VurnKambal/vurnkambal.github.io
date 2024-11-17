@@ -49,7 +49,7 @@ export default function Home() {
                                 "
                             />
                             <p className="my-4 text-base font-medium md:text-sm sm:text-xs">
-                                [Description] I'm a software engineer and a
+                                [Description] I&apos;m a software engineer and a
                                 product designer.
                             </p>
                             <div className="flex items-center self-start mt-2 lg:self-center">
