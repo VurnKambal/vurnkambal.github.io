@@ -8,8 +8,8 @@ const Details = ({ type, time, place, info }) => {
         <li
             ref={ref}
             className="
-                my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-center
-                md:w-[80%] xs:w-[90%]
+                my-8 first:mt-0 last:mb-0 w-[60%] ml-[100px] flex flex-col items-start justify-between
+                md:w-[80%] md:ml-[70px] xs:w-[90%] xs:ml-[50px]
             "
         >
             <LiIcon reference={ref} />
@@ -17,6 +17,7 @@ const Details = ({ type, time, place, info }) => {
                 initial={{ y: 50 }}
                 whileInView={{ y: 0 }}
                 transition={{ duration: 0.5, type: "spring" }}
+                className="w-full"
             >
                 <h3 className="capitalize font-bold text-2xl sm:text-xl xs:text-lg">
                     {type}
@@ -54,7 +55,7 @@ const Education = () => {
                         "
                     style={{ scaleY: scrollYProgress }}
                 />
-                <ul className="w-full flex flex-col items-start justify-between ml-4 xs:ml-2">
+                <ul className="w-full flex flex-col items-start justify-between">
                     <Details
                         type="Bachelor of Science in Computer Science"
                         time="2021-2025"
@@ -62,16 +63,14 @@ const Education = () => {
                         info="Programming Theory, Data Structures and Algorithms, Computer Organization and Architecture, Operating Systems, Database Systems, Software Engineering, Artificial Intelligence, Computer Networks, and Cybersecurity"
                     />
                     <Details
-                        type="Bachelor of Science in Computer Science"
-                        time="2021-2025"
-                        place="Holy Angel University"
-                        info="Programming Theory, Data Structures and Algorithms, Computer Organization and Architecture, Operating Systems, Database Systems, Software Engineering, Artificial Intelligence, Computer Networks"
+                        type="High School"
+                        time="2015-2021"
+                        place="Holy Family Academy"
                     />
                     <Details
-                        type="Bachelor of Science in Computer Science"
-                        time="2021-2025"
-                        place="Holy Angel University"
-                        info="Programming Theory, Data Structures and Algorithms, Computer Organization and Architecture, Operating Systems, Database Systems, Software Engineering, Artificial Intelligence, Computer Networks"
+                        type="Elementary School"
+                        time="2009-2015"
+                        place="Holy Family Academy"
                     />
                 </ul>
             </div>
