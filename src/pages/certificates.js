@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import blockchainConf from "../../public/images/certificates/blockchain-conference-blurred.jpg";
-import ctd1st from "../../public/images/certificates/CtD-1st.jpg";
+import ctd1st from "../../public/images/certificates/CtD-1st-blurred.jpg";
 import ctd2nd from "../../public/images/certificates/CtD-2nd.jpg";
 import cybersecurityConf from "../../public/images/certificates/cybersecurity-conference-blurred.png";
 import dataScraping from "../../public/images/certificates/data-scraping.png";
