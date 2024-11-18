@@ -95,7 +95,7 @@ const about = () => {
                         >
                             <div className="flex flex-col items-end justify-center xl:items-center">
                                 <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-                                    <AnimatedNumbers value={50} />+
+                                    <AnimatedNumbers value={7} />
                                 </span>
                                 <h2
                                     className="
@@ -103,13 +103,13 @@ const about = () => {
                                         md:text-lg sm:text-base xs:text-sm
                                     "
                                 >
-                                    Satisfied Clients
+                                    Credly Badges
                                 </h2>
                             </div>
 
                             <div className="flex flex-col items-end justify-center xl:items-center">
                                 <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-                                    <AnimatedNumbers value={40} />+
+                                    <AnimatedNumbers value={5} />
                                 </span>
                                 <h2
                                     className="
