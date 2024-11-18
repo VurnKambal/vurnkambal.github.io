@@ -69,7 +69,7 @@ export default function Home() {
                                     <LinkArrow className="w-6 h-6 ml-1" />
                                 </Link>
                                 <Link
-                                    href="mailto:vurnkambal@gmail.com"
+                                    href="mailto:verneilkent.batiller@gmail.com"
                                     target={"_blank"}
                                     className="
                                         ml-4 text-lg font-medium capitalize text-dark underline hover:text-primary
