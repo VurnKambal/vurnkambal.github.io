@@ -38,171 +38,66 @@ import "swiper/css/autoplay";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 
 const FramerImage = motion(Image);
 
 const ImageModal = ({ image, title, issuer, date, onClose }) => {
-    const [scale, setScale] = useState(1);
-    const [panning, setPanning] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const imageRef = useRef(null);
-
-    const handleWheel = (e) => {
-        e.preventDefault();
-        const delta = e.deltaY * -0.01;
-        const newScale = Math.min(Math.max(1, scale + delta), 4);
-        setScale(newScale);
-    };
-
-    const handleDoubleClick = () => {
-        if (scale === 1) {
-            setScale(2);
-        } else {
-            setScale(1);
-            setPosition({ x: 0, y: 0 });
-        }
-    };
-
-    const resetZoom = () => {
-        setScale(1);
-        setPosition({ x: 0, y: 0 });
-    };
-
     return (
-        <div
-            className="fixed inset-0 bg-black/90 z-50 flex flex-col items-center justify-center p-4 sm:p-2"
-            onClick={() => {
-                resetZoom();
-                onClose();
+        <Lightbox
+            open={true}
+            close={onClose}
+            slides={[{ src: image.src || image }]}
+            plugins={[Zoom]}
+            carousel={{ finite: true }}
+            animation={{ fade: 0 }}
+            zoom={{
+                maxZoomPixelRatio: 5,
+                scrollToZoom: true,
+                wheelZoomDistanceFactor: 100,
+                pinchZoomDistanceFactor: 100,
+                doubleClickMaxStops: 2,
+                doubleClickDelay: 300,
             }}
-        >
-            {/* Controls */}
-            <div className="absolute top-4 right-4 flex gap-2 z-50 sm:top-2 sm:right-2">
-                <button
-                    className="text-white/75 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setScale(Math.min(scale + 0.5, 4));
-                    }}
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 sm:h-5 sm:w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                        />
-                    </svg>
-                </button>
-                <button
-                    className="text-white/75 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setScale(Math.max(scale - 0.5, 1));
-                        if (scale <= 1.5) setPosition({ x: 0, y: 0 });
-                    }}
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 sm:h-5 sm:w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M18 12H6"
-                        />
-                    </svg>
-                </button>
-                <button
-                    className="text-white/75 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        resetZoom();
-                        onClose();
-                    }}
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 sm:h-5 sm:w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
-            </div>
+            styles={{
+                container: { backgroundColor: "rgba(0, 0, 0, 0.9)" },
+                root: { "--yarl__color_backdrop": "rgba(0, 0, 0, 0.9)" },
+                slide: {
+                    padding: "0 0 6rem 0",
+                },
+            }}
+            render={{
+                iconNext: () => null,
+                iconPrev: () => null,
+                buttonNext: () => null,
+                buttonPrev: () => null,
+                slideContainer: ({ children }) => (
+                    <>
+                        <div className="relative h-full">
+                            <div className="h-full flex items-center justify-center">
+                                {children}
+                            </div>
+                        </div>
 
-            {/* Image and Details Container */}
-            <div
-                className="max-w-5xl w-full bg-light dark:bg-dark rounded-lg overflow-hidden max-h-[90vh] flex flex-col mx-auto my-auto"
-                onClick={(e) => e.stopPropagation()}
-            >
-                {/* Image Container */}
-                <div
-                    className="relative overflow-hidden flex-grow"
-                    onWheel={handleWheel}
-                    onDoubleClick={handleDoubleClick}
-                    style={{
-                        cursor: scale > 1 ? "move" : "zoom-in",
-                        touchAction: "none",
-                    }}
-                >
-                    <div
-                        ref={imageRef}
-                        style={{
-                            transform: `scale(${scale})`,
-                            transition: "transform 0.2s",
-                            transformOrigin: "center center",
-                        }}
-                        className="relative"
-                    >
-                        <Image
-                            src={image}
-                            alt={title}
-                            className="w-full h-auto object-contain max-h-[70vh]"
-                            priority
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                        />
-                    </div>
-                </div>
-
-                {/* Details Section */}
-                <div className="p-6 border-t border-dark/10 dark:border-light/10 sm:p-4">
-                    <h2 className="text-2xl font-bold text-dark dark:text-light mb-2 sm:text-lg">
-                        {title}
-                    </h2>
-                    {issuer && (
-                        <p className="text-primary dark:text-primaryDark text-lg mb-1 sm:text-base">
-                            {issuer}
-                        </p>
-                    )}
-                    <p className="text-dark/60 dark:text-light/60 text-sm">
-                        {date}
-                    </p>
-                </div>
-            </div>
-
-            {/* Instructions */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/75 text-sm bg-black/50 px-4 py-2 rounded-full text-center sm:text-xs sm:bottom-2 sm:w-[90%] sm:px-2">
-                Double-click or use buttons to zoom • Click outside to close
-            </div>
-        </div>
+                        <div className="absolute bottom-0 left-0 right-0 bg-light/90 dark:bg-dark/90 p-4 text-center">
+                            <h2 className="text-xl font-bold text-dark dark:text-light">
+                                {title}
+                            </h2>
+                            {issuer && (
+                                <p className="text-primary dark:text-primaryDark">
+                                    {issuer}
+                                </p>
+                            )}
+                            <p className="text-dark/60 dark:text-light/60 text-sm">
+                                {date}
+                            </p>
+                        </div>
+                    </>
+                ),
+            }}
+        />
     );
 };
 
