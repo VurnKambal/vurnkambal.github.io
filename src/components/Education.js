@@ -60,7 +60,7 @@ const Education = () => {
                         type="Bachelor of Science in Computer Science"
                         time="2021-2025"
                         place="Holy Angel University"
-                        info="Programming Theory, Data Structures and Algorithms, Computer Organization and Architecture, Operating Systems, Database Systems, Software Engineering, Artificial Intelligence, Computer Networks, and Cybersecurity"
+                        info="Programming Theory, Data Structures and Algorithms, Computer Organization and Architecture, Operating Systems, Database Systems, Software Engineering, Modelling, Computer Networks, and Cybersecurity"
                     />
                     <Details
                         type="High School"
