@@ -1,7 +1,12 @@
 const path = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    output: "export", // Enable static exports
+    basePath:
+        process.env.NODE_ENV === "production" ? "/vurnkamb    .github.io" : "", // Replace with your repository name
+    images: {
+        unoptimized: true, // Required for static export
+    },
     webpack: (config) => {
         config.module.rules.push({
             test: /\.(mp4|webm)$/i,
@@ -14,13 +19,6 @@ const nextConfig = {
                 },
             },
         });
-
-        // Add alias configuration
-        config.resolve.alias = {
-            ...config.resolve.alias,
-            "@": path.join(__dirname, "src"),
-        };
-
         return config;
     },
 };
