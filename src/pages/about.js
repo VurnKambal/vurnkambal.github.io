@@ -137,7 +137,8 @@ const about = () => {
                         </div>
                     </div>
                     <Skills />
-                    <Experience />
+                    {/* No Experience */}
+                    {/* <Experience /> */}
                     <Education />
                 </Layout>
             </main>
