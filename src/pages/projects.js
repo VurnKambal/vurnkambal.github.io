@@ -4,15 +4,117 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import thesisInput from "../../public/images/projects/thesis-input.png";
 import blockchainInvocation from "../../public/videos/projects/blockchain-invocation-marketplace.mp4";
 import { motion } from "framer-motion";
 import TransitionEffect from "../components/TransitionEffect";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 
 const FramerImage = motion(Image);
 
-const FeaturedProject = ({ type, title, summary, img, link, github }) => {
+const ImageModal = ({ image, title, summary, onClose }) => {
+    const videoRef = React.useRef(null);
+    const isVideo = typeof image === "string" && image.endsWith(".mp4");
+
+    // Set the current time when the video element is loaded
+    React.useEffect(() => {
+        if (isVideo && videoRef.current && image.currentTime) {
+            videoRef.current.currentTime = image.currentTime;
+        }
+    }, [isVideo, image]);
+
+    return (
+        <Lightbox
+            open={true}
+            close={onClose}
+            slides={[
+                {
+                    type: isVideo ? "video" : "image",
+                    src: typeof image === "string" ? image : image.src,
+                    width: 1280,
+                    height: 720,
+                },
+            ]}
+            plugins={[Zoom]}
+            carousel={{ finite: true }}
+            animation={{ fade: 0 }}
+            zoom={{
+                maxZoomPixelRatio: 5,
+                scrollToZoom: true,
+                wheelZoomDistanceFactor: 100,
+                pinchZoomDistanceFactor: 100,
+                doubleClickMaxStops: 2,
+                doubleClickDelay: 300,
+            }}
+            styles={{
+                container: { backgroundColor: "rgba(0, 0, 0, 0.9)" },
+                root: { "--yarl__color_backdrop": "rgba(0, 0, 0, 0.9)" },
+                slide: {
+                    padding: "0 0 6rem 0",
+                },
+            }}
+            render={{
+                iconNext: () => null,
+                iconPrev: () => null,
+                buttonNext: () => null,
+                buttonPrev: () => null,
+                slide: ({ slide }) => {
+                    if (slide.type === "video") {
+                        return (
+                            <video
+                                ref={videoRef}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                controls
+                                className="w-full h-auto max-h-[80vh]"
+                                style={{ maxWidth: "90vw" }}
+                            >
+                                <source src={slide.src} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        );
+                    }
+                    return null; // Let the default renderer handle images
+                },
+                slideContainer: ({ children }) => (
+                    <>
+                        <div className="relative h-full">
+                            <div className="h-full flex items-center justify-center">
+                                {children}
+                            </div>
+                        </div>
+
+                        <div className="absolute bottom-0 left-0 right-0 bg-light/90 dark:bg-dark/90 p-4 text-center">
+                            <h2 className="text-xl font-bold text-dark dark:text-light">
+                                {title}
+                            </h2>
+                            <p className="text-dark/60 dark:text-light/60 text-sm">
+                                {summary}
+                            </p>
+                        </div>
+                    </>
+                ),
+            }}
+        />
+    );
+};
+
+const FeaturedProject = ({
+    type,
+    title,
+    summary,
+    img,
+    github,
+    setSelectedImage,
+}) => {
+    // Add ref for the video element
+    const videoRef = React.useRef(null);
+
     return (
         <article
             className="
@@ -29,13 +131,20 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
                     xs:-right-2 xs:w-[99.8%] sm:h-[101.5%] xs:rounded-[2rem]
                 "
             />
-            <Link
-                href={link}
-                target="_blank"
-                className=" cursor-pointer overflow-hidden rounded-lg w-full"
+            <div
+                className="cursor-pointer overflow-hidden rounded-lg w-full"
+                onClick={() => {
+                    setSelectedImage({
+                        src: img,
+                        title,
+                        summary,
+                        currentTime: videoRef.current?.currentTime || 0,
+                    });
+                }}
             >
                 {typeof img === "string" && img.endsWith(".mp4") ? (
                     <video
+                        ref={videoRef}
                         autoPlay
                         loop
                         muted
@@ -53,21 +162,17 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
                         priority
-                        sizes="
-                            (max-width: 768px) 100vw,
-                            (max-width: 1200px) 50vw,
-                            50vw
-                        "
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                     />
                 )}
-            </Link>
+            </div>
 
             <div className="flex flex-col items-start justify-between w-full pl-0 pt-6">
                 <span className="text-primary font-medium capitalize text-xl dark:text-primaryDark xs:text-base">
                     {type}
                 </span>
                 <Link
-                    href={link}
+                    href={github}
                     target="_blank"
                     className="hover:underline underline-offset-2"
                 >
@@ -82,7 +187,7 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
                         <GithubIcon />
                     </Link>
                     <Link
-                        href={link}
+                        href={github}
                         target="_blank"
                         className="
                             ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg font-semibold capitalize
@@ -108,13 +213,6 @@ const Project = ({ type, title, img, link, github }) => {
                 xs:p-4
             "
         >
-            <div
-                className="
-                    absolute top-0 -right-3 -z-10 w-[100.8%] h-[102.5%] rounded-[2rem]
-                    bg-dark rounded-br-3xl dark:bg-light
-                    md:-right-2 md:w-[99.8%] md:h-[101.5%] md:rounded-[1.5rem]
-                "
-            />
             <Link
                 href={link}
                 target="_blank"
@@ -179,6 +277,25 @@ const Project = ({ type, title, img, link, github }) => {
     );
 };
 const Projects = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    useEffect(() => {
+        console.log(selectedImage);
+        if (selectedImage) {
+            document.body.style.overflow = "hidden";
+            document.body.style.paddingRight = `${
+                window.innerWidth - document.documentElement.clientWidth
+            }px`;
+        } else {
+            document.body.style.overflow = "";
+            document.body.style.paddingRight = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+            document.body.style.paddingRight = "";
+        };
+    }, [selectedImage]);
     return (
         <>
             <Head>
@@ -203,8 +320,8 @@ const Projects = () => {
                                     historical data and economic indicators like inflation rates and consumer price index
                                 "
                                 img={thesisInput}
-                                link="https://www.google.com"
                                 github="https://www.github.com/vurnkambal/AngeliteForecast/tree/master"
+                                setSelectedImage={setSelectedImage}
                             />
                         </div>
                         {/* <div className="col-span-6 sm:col-span-12 sm:col-span-12">
@@ -236,13 +353,22 @@ const Projects = () => {
                                     MetaMask integration, utilizing Genius Invokation TCG assets for learning purposes.
                                 "
                                 img={blockchainInvocation}
-                                link="https://www.google.com"
-                                github="https://www.github.com/vurnkambal"
+                                github="https://www.github.com/vurnkambal/Invocation/tree/master"
+                                setSelectedImage={setSelectedImage}
                             />
                         </div>
                     </div>
                 </Layout>
             </main>
+
+            {selectedImage && (
+                <ImageModal
+                    image={selectedImage.src}
+                    title={selectedImage.title}
+                    summary={selectedImage.summary}
+                    onClose={() => setSelectedImage(null)}
+                />
+            )}
         </>
     );
 };
