@@ -5,31 +5,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
-import blockchainConf from "../../public/images/certificates/blockchain-conference-blurred.jpg";
-import ctd1st from "../../public/images/certificates/CtD-1st-blurred.jpg";
-import ctd2nd from "../../public/images/certificates/CtD-2nd.jpg";
-import cybersecurityConf from "../../public/images/certificates/cybersecurity-conference-blurred.png";
-import dataScraping from "../../public/images/certificates/data-scraping.png";
-import enigma from "../../public/images/certificates/gdsc-enigma-blurred.png";
-import gdscPerennial from "../../public/images/certificates/gdsc-perennial-blurred.png";
-import hextechFifth from "../../public/images/certificates/hextech-fifth-place-blurred.png";
-import stackleagueChiefs from "../../public/images/certificates/stackleague-codingchiefs-blurred.png";
-import stackleagueGold from "../../public/images/certificates/stackleague-gold.png";
-import stackleagueSilver from "../../public/images/certificates/stackleague-silver.png";
-import tahakTech1 from "../../public/images/certificates/tahak-tech-day1-blurred.png";
-import tahakTech2 from "../../public/images/certificates/tahak-tech-day2-blurred.png";
-import tahakTech3 from "../../public/images/certificates/tahak-tech-day3-blurred.png";
-import tahakTech4 from "../../public/images/certificates/tahak-tech-day4-blurred.png";
-import taraML1 from "../../public/images/certificates/taraml-day1-blurred.png";
-import taraML2 from "../../public/images/certificates/taraml-day2-blurred.png";
-import taraML3 from "../../public/images/certificates/taraml-day3-blurred.png";
-import cloudFoundations from "../../public/images/badges/cloud-foundations.png";
-import cyberopsAssociate from "../../public/images/badges/cyberops-associate.png";
-import cybersecurityIntro from "../../public/images/badges/cybersecurity-intro.png";
-import deepracer from "../../public/images/badges/deepracer.png";
-import iotIntro from "../../public/images/badges/iot-intro.png";
-import networkIntroCcna from "../../public/images/badges/network-intro-ccna.png";
-import python1 from "../../public/images/badges/python-1.png";
+import {
+    certificates,
+    certificateSeries,
+    badges,
+} from "../data/certificatesData";
 import { motion } from "framer-motion";
 import TransitionEffect from "../components/TransitionEffect";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -278,158 +258,21 @@ const Certificates = () => {
                     />
 
                     <div className="grid grid-cols-2 gap-12 lg:gap-8 md:grid-cols-1">
-                        <Certificate
-                            title="1st Regional Blockchain Conference"
-                            // issuer="Conference Organizer"
-                            date="July 2024"
-                            img={blockchainConf}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
+                        {certificates.map((cert, index) => (
+                            <Certificate
+                                key={index}
+                                {...cert}
+                                setSelectedImage={setSelectedImage}
+                            />
+                        ))}
 
-                        <Certificate
-                            title="Code to Death 2021 Champion"
-                            // issuer="Competition Organizer"
-                            date="2021"
-                            img={ctd1st}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="Code to Death 2022 Champion"
-                            // issuer="Competition Organizer"
-                            date="2022"
-                            img={ctd2nd}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="2nd Regional Cybersecurity Conference"
-                            // issuer="Conference Organizer"
-                            date="2024"
-                            img={cybersecurityConf}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="Data Scraping Workshop"
-                            // issuer="Workshop Organizer"
-                            date="2024"
-                            img={dataScraping}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="Through The Eyes of Enigma"
-                            // issuer="Organization"
-                            date="January 2022"
-                            img={enigma}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="Perennial"
-                            // issuer="Google Developer Student Clubs"
-                            date="2024"
-                            img={gdscPerennial}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="Tech Careerscape - 5th Place"
-                            // issuer="Competition Organizer"
-                            date="2024"
-                            img={hextechFifth}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="StackLeague x CodingChiefs"
-                            // issuer="StackLeague"
-                            date="2024"
-                            img={stackleagueChiefs}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <Certificate
-                            title="StackLeague Gold Achievement"
-                            // issuer="StackLeague"
-                            date="2024"
-                            img={stackleagueGold}
-                            link="#"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CertificateSeries
-                            title="Tahak Tech Series"
-                            certificates={[
-                                {
-                                    title: "Tahak Tech",
-                                    // issuer: "Tahak Tech",
-                                    date: "2024",
-                                    img: tahakTech1,
-                                    link: "#",
-                                },
-                                {
-                                    title: "Tahak Tech",
-                                    // issuer: "Tahak Tech",
-                                    date: "2024",
-                                    img: tahakTech2,
-                                    link: "#",
-                                },
-                                {
-                                    title: "Tahak Tech",
-                                    // issuer: "Tahak Tech",
-                                    date: "2024",
-                                    img: tahakTech3,
-                                    link: "#",
-                                },
-                                {
-                                    title: "Tahak Tech",
-                                    // issuer: "Tahak Tech",
-                                    date: "2024",
-                                    img: tahakTech4,
-                                    link: "#",
-                                },
-                            ]}
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CertificateSeries
-                            title="TaraML Workshop Series"
-                            certificates={[
-                                {
-                                    title: "TaraML Workshop",
-                                    // issuer: "TaraML",
-                                    date: "2024",
-                                    img: taraML1,
-                                    link: "#",
-                                },
-                                {
-                                    title: "TaraML Workshop",
-                                    // issuer: "TaraML",
-                                    date: "2024",
-                                    img: taraML2,
-                                    link: "#",
-                                },
-                                {
-                                    title: "TaraML Workshop",
-                                    // issuer: "TaraML",
-                                    date: "2024",
-                                    img: taraML3,
-                                    link: "#",
-                                },
-                            ]}
-                            setSelectedImage={setSelectedImage}
-                        />
+                        {certificateSeries.map((series, index) => (
+                            <CertificateSeries
+                                key={index}
+                                {...series}
+                                setSelectedImage={setSelectedImage}
+                            />
+                        ))}
                     </div>
 
                     <AnimatedText
@@ -438,68 +281,13 @@ const Certificates = () => {
                     />
 
                     <div className="grid grid-cols-3 gap-12 lg:gap-8 md:grid-cols-2 sm:grid-cols-1">
-                        <CredlyBadge
-                            title="AWS Cloud Foundations"
-                            issuer="AWS Educate"
-                            date="2024"
-                            img={cloudFoundations}
-                            badgeId="b212682a-0bab-476a-935f-cbc9e1ecc4aa"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="CyberOps Associate"
-                            issuer="Cisco"
-                            date="2024"
-                            img={cyberopsAssociate}
-                            badgeId="54572a26-6fde-4019-8093-8f68e2b4466b"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="Introduction to Cybersecurity"
-                            issuer="Cisco"
-                            date="2024"
-                            img={cybersecurityIntro}
-                            badgeId="54985b9c-e78e-4690-a123-1979ff74dec1"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="Machine Learning - DeepRacer"
-                            issuer="AWS Educate"
-                            date="2024"
-                            img={deepracer}
-                            badgeId="ee93bac2-06e8-4aff-bd07-6973aaac23c0"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="Introduction to IoT"
-                            issuer="Cisco"
-                            date="2024"
-                            img={iotIntro}
-                            badgeId="e448e991-ab7f-4e4a-97de-662777e0f23e"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="CCNA: Introduction to Networks"
-                            issuer="Cisco"
-                            date="2024"
-                            img={networkIntroCcna}
-                            badgeId="45af9748-0c36-476a-a93e-7375a53aa6b7"
-                            setSelectedImage={setSelectedImage}
-                        />
-
-                        <CredlyBadge
-                            title="Python Essentials 1"
-                            issuer="Cisco"
-                            date="2024"
-                            img={python1}
-                            badgeId="4a5982b9-40fd-4ac4-b6ff-547dc17e373c"
-                            setSelectedImage={setSelectedImage}
-                        />
+                        {badges.map((badge, index) => (
+                            <CredlyBadge
+                                key={index}
+                                {...badge}
+                                setSelectedImage={setSelectedImage}
+                            />
+                        ))}
                     </div>
                 </Layout>
             </main>
