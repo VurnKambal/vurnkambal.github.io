@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import thesisInput from "../../public/images/projects/thesis-input.png";
 import blockchainInvocation from "../../public/videos/projects/blockchain-invocation-marketplace.mp4";
+import cloudInvocation from "../../public/videos/projects/cloudcomp-invocation-gacha.mp4";
 import { motion } from "framer-motion";
 import TransitionEffect from "../components/TransitionEffect";
 import Lightbox from "yet-another-react-lightbox";
@@ -112,7 +113,6 @@ const FeaturedProject = ({
     github,
     setSelectedImage,
 }) => {
-    // Add ref for the video element
     const videoRef = React.useRef(null);
 
     return (
@@ -122,6 +122,7 @@ const FeaturedProject = ({
                 rounded-3xl border border-solid border-dark bg-light shadow-2xl
                 p-12 relative dark:bg-dark dark:text-light dark:border-light
                 flex-col lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4
+                h-full
             "
         >
             <div
@@ -132,7 +133,11 @@ const FeaturedProject = ({
                 "
             />
             <div
-                className="cursor-pointer overflow-hidden rounded-lg w-full"
+                className="
+                    cursor-pointer overflow-hidden rounded-lg w-full
+                    flex items-center justify-center
+                    mb-8
+                "
                 onClick={() => {
                     setSelectedImage({
                         src: img,
@@ -167,22 +172,25 @@ const FeaturedProject = ({
                 )}
             </div>
 
-            <div className="flex flex-col items-start justify-between w-full pl-0 pt-6">
-                <span className="text-primary font-medium capitalize text-xl dark:text-primaryDark xs:text-base">
-                    {type}
-                </span>
-                <Link
-                    href={github}
-                    target="_blank"
-                    className="hover:underline underline-offset-2"
-                >
-                    <h2 className="my-2 w-full text-left text-4xl font-bold capitalize xs:text-sm">
-                        {title}
-                    </h2>
-                </Link>
+            <div className="flex flex-col items-start justify-between w-full min-h-[250px]">
+                <div>
+                    <span className="text-primary font-medium capitalize text-xl dark:text-primaryDark xs:text-base">
+                        {type}
+                    </span>
+                    <Link
+                        href={github}
+                        target="_blank"
+                        className="hover:underline underline-offset-2"
+                    >
+                        <h2 className="my-2 w-full text-left text-4xl font-bold capitalize xs:text-sm">
+                            {title}
+                        </h2>
+                    </Link>
 
-                <p className="my-2 font-medium sm:text-sm">{summary}</p>
-                <div className="mt-2 flex items-center">
+                    <p className="my-2 font-medium sm:text-sm">{summary}</p>
+                </div>
+
+                <div className="mt-6 flex items-center">
                     <Link href={github} target="_blank" className="w-10">
                         <GithubIcon />
                     </Link>
@@ -310,38 +318,25 @@ const Projects = () => {
                         className="mb-16 lg:!text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl"
                     />
 
-                    <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
-                        <div className="col-span-6 sm:col-span-12">
+                    <div className="grid grid-cols-12 gap-16 gap-y-24 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
+                        <div className="col-span-12">
                             <FeaturedProject
                                 type="Machine Learning"
                                 title="Angelite Forecast"
                                 summary="
-                                    A machine learning system that predicts university enrollment trends by analyzing 
-                                    historical data and economic indicators like inflation rates and consumer price index
+                                    A machine learning system that predicts enrollment trends by analyzing 
+                                    historical data and economic indicators, such as inflation rates and the consumer 
+                                    price index. The system utilizes algorithms including Linear Regression, KNN, Random 
+                                    Forest, XGBoost  DART, Simple Exponential Smoothing, Moving Average, and an 
+                                    Ensemble model combining Random Forest, XGBoost DART, and Simple Exponential 
+                                    Smoothing. These algorithms were compared with existing forecasting methods to 
+                                    assess their effectiveness in predicting future enrollment patterns.
                                 "
                                 img={thesisInput}
                                 github="https://www.github.com/vurnkambal/AngeliteForecast/tree/master"
                                 setSelectedImage={setSelectedImage}
                             />
                         </div>
-                        {/* <div className="col-span-6 sm:col-span-12 sm:col-span-12">
-                            <Project
-                                type="Featured Project"
-                                title="Project 2"
-                                img={project1}
-                                link="https://www.google.com"
-                                github="https://www.github.com/vurnkambal"
-                            />
-                        </div>
-                        <div className="col-span-6 sm:col-span-12">
-                            <Project
-                                type="Featured Project"
-                                title="Project 3"
-                                img={project1}
-                                link="https://www.google.com"
-                                github="https://www.github.com/vurnkambal"
-                            />
-                        </div> */}
 
                         <div className="col-span-6 sm:col-span-12">
                             <FeaturedProject
@@ -350,10 +345,27 @@ const Projects = () => {
                                 summary="
                                     A blockchain educational project featuring an NFT gacha system and marketplace 
                                     inspired by Genshin Impact's TCG Invocation. Built with Hardhat, Vite, and 
-                                    MetaMask integration, utilizing Genius Invokation TCG assets for learning purposes.
+                                    MetaMask integration. Assets are stored on IPFS via Pinata, utilizing Genius 
+                                    Invokation TCG assets for learning purposes.
                                 "
                                 img={blockchainInvocation}
                                 github="https://www.github.com/vurnkambal/Invocation/tree/master"
+                                setSelectedImage={setSelectedImage}
+                            />
+                        </div>
+
+                        <div className="col-span-6 sm:col-span-12">
+                            <FeaturedProject
+                                type="Cloud Computing"
+                                title="Invocation Cloud"
+                                summary="
+                                    A cloud-based version of the Invocation gacha system, reimagined as a classic 
+                                    non-blockchain application. Features YouTube API integration for ad implementation 
+                                    and is deployed on AWS with DocumentDB (MongoDB) for data persistence. This project 
+                                    demonstrates cloud architecture and deployment practices.
+                                "
+                                img={cloudInvocation}
+                                github="https://www.github.com/vurnkambal/InvocationCloud/tree/master"
                                 setSelectedImage={setSelectedImage}
                             />
                         </div>
