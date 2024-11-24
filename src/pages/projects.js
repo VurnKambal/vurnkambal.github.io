@@ -349,7 +349,7 @@ const Projects = () => {
                                     Invokation TCG assets for learning purposes.
                                 "
                                 img={blockchainInvocation}
-                                github="https://www.github.com/vurnkambal/Invocation/tree/master"
+                                github="https://www.github.com/vurnkambal/InvocationNFT"
                                 setSelectedImage={setSelectedImage}
                             />
                         </div>
@@ -365,7 +365,7 @@ const Projects = () => {
                                     demonstrates cloud architecture and deployment practices.
                                 "
                                 img={cloudInvocation}
-                                github="https://www.github.com/vurnkambal/InvocationCloud/tree/master"
+                                github="https://www.github.com/vurnkambal/InvocationCloud"
                                 setSelectedImage={setSelectedImage}
                             />
                         </div>
