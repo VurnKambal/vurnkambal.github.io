@@ -55,17 +55,37 @@ const about = () => {
                                 Biography
                             </h2>
                             <p className="font-medium">
-                                About me Description Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Quisquam, quos.
+                                As a Bachelor of Science in Computer Science
+                                student at Holy Angel University, I have
+                                consistently earned recognition as a Dean's and
+                                President's Lister. My passion for Game
+                                Development and Artificial Intelligence drives
+                                me to innovate and contribute to transformative
+                                technologies. While Game Development was not
+                                part of my curriculum, I pursued it
+                                independently, honing my skills with tools like
+                                Unreal Engine and Unity.
                             </p>
                             <p className="font-medium my-4">
-                                About me Middle Description Lorem ipsum dolor
-                                sit amet consectetur adipisicing elit. Quisquam,
-                                quos.
+                                Notable projects include Angelite Forecast, a
+                                machine learning-based forecasting system, and
+                                Invocation, a blockchain-powered NFT card gacha
+                                and marketplace. These projects showcase my
+                                skills in AI, blockchain development, and
+                                backend programming. I have also excelled in
+                                competitions, earning the highest individual
+                                score in my school's Capture the Flag event and
+                                succeeding in LOOP's Code to Death programming
+                                competition.
                             </p>
                             <p className="font-medium">
-                                About me Description Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Quisquam, quos.
+                                Through badges and certificates in AI, machine
+                                learning, cybersecurity, and cloud computing
+                                from AWS Academy, Cisco Networking Academy, and
+                                DataCamp, I demonstrate a commitment to
+                                continuous learning. I aim to build impactful
+                                software solutions and explore opportunities
+                                that push the boundaries of technology.
                             </p>
                         </div>
                         <div
