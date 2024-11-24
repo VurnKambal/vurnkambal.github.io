@@ -57,8 +57,8 @@ const about = () => {
                             <p className="font-medium">
                                 As a Bachelor of Science in Computer Science
                                 student at Holy Angel University, I have
-                                consistently earned recognition as a Dean's and
-                                President's Lister. My passion for Game
+                                consistently earned recognition as a Dean&apos;s
+                                and President&apos;s Lister. My passion for Game
                                 Development and Artificial Intelligence drives
                                 me to innovate and contribute to transformative
                                 technologies. While Game Development was not
@@ -74,9 +74,9 @@ const about = () => {
                                 skills in AI, blockchain development, and
                                 backend programming. I have also excelled in
                                 competitions, earning the highest individual
-                                score in my school's Capture the Flag event and
-                                succeeding in LOOP's Code to Death programming
-                                competition.
+                                score in my school&apos;s Capture the Flag event
+                                and succeeding in LOOP&apos;s Code to Death
+                                programming competition.
                             </p>
                             <p className="font-medium">
                                 Through badges and certificates in AI, machine
