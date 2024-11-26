@@ -24,7 +24,17 @@ import "yet-another-react-lightbox/styles.css";
 
 const FramerImage = motion(Image);
 
-const ImageModal = ({ image, title, issuer, date, onClose }) => {
+const ImageModal = ({
+    image,
+    title,
+    seriesTitle,
+    issuer,
+    date,
+    onClose,
+    onNext,
+    onPrev,
+    hasNavigation,
+}) => {
     return (
         <Lightbox
             open={true}
@@ -47,12 +57,71 @@ const ImageModal = ({ image, title, issuer, date, onClose }) => {
                 slide: {
                     padding: "0 0 6rem 0",
                 },
+                navigationPrev: { zIndex: 10 },
+                navigationNext: { zIndex: 10 },
+                toolbar: { zIndex: 20 },
+                button: { zIndex: 20 },
+            }}
+            on={{
+                view: ({ index }) => {
+                    // Optional: sync with swiper if needed
+                },
             }}
             render={{
-                iconNext: () => null,
-                iconPrev: () => null,
-                buttonNext: () => null,
-                buttonPrev: () => null,
+                iconNext: () => (hasNavigation ? null : null),
+                iconPrev: () => (hasNavigation ? null : null),
+                buttonNext: () =>
+                    hasNavigation ? (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onNext();
+                            }}
+                            className="absolute right-4 top-0 h-[calc(100%-6rem)] px-4 flex items-center justify-center transition-all duration-300 hover:bg-light/20 dark:hover:bg-dark/20 rounded-lg group"
+                        >
+                            <div className="bg-light/80 dark:bg-dark/80 p-2 rounded-full transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M9 18l6-6-6-6" />
+                                </svg>
+                            </div>
+                        </button>
+                    ) : null,
+                buttonPrev: () =>
+                    hasNavigation ? (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onPrev();
+                            }}
+                            className="absolute left-4 top-0 h-[calc(100%-6rem)] px-4 flex items-center justify-center transition-all duration-300 hover:bg-light/20 dark:hover:bg-dark/20 rounded-lg group"
+                        >
+                            <div className="bg-light/80 dark:bg-dark/80 p-2 rounded-full transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M15 18l-6-6 6-6" />
+                                </svg>
+                            </div>
+                        </button>
+                    ) : null,
                 slideContainer: ({ children }) => (
                     <>
                         <div className="relative h-full">
@@ -63,6 +132,14 @@ const ImageModal = ({ image, title, issuer, date, onClose }) => {
 
                         <div className="absolute bottom-0 left-0 right-0 bg-light/90 dark:bg-dark/90 p-4 text-center">
                             <h2 className="text-xl font-bold text-dark dark:text-light">
+                                {seriesTitle && (
+                                    <span className="text-primary dark:text-primaryDark">
+                                        {seriesTitle}
+                                        <span className="text-dark dark:text-light mx-2">
+                                            |
+                                        </span>
+                                    </span>
+                                )}
                                 {title}
                             </h2>
                             {issuer && (
@@ -167,11 +244,66 @@ const CredlyBadge = ({
 };
 
 const CertificateSeries = ({ title, certificates, setSelectedImage }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const swiperRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (swiperRef.current?.swiper?.autoplay) {
+                swiperRef.current.swiper.autoplay.stop();
+            }
+        };
+    }, []);
+
+    const handleImageClick = (index) => {
+        if (swiperRef.current?.swiper) {
+            swiperRef.current.swiper.autoplay.stop();
+            swiperRef.current.swiper.allowSlideNext = false;
+            swiperRef.current.swiper.allowSlidePrev = false;
+        }
+
+        const updateImageModal = (idx) => ({
+            src: certificates[idx].img,
+            title: certificates[idx].title,
+            seriesTitle: title,
+            issuer: certificates[idx].issuer,
+            date: certificates[idx].date,
+            onNext: () => {
+                const nextIdx = (idx + 1) % certificates.length;
+                setCurrentIndex(nextIdx);
+                setSelectedImage(updateImageModal(nextIdx));
+            },
+            onPrev: () => {
+                const prevIdx =
+                    (idx - 1 + certificates.length) % certificates.length;
+                setCurrentIndex(prevIdx);
+                setSelectedImage(updateImageModal(prevIdx));
+            },
+            hasNavigation: true,
+            onClose: () => {
+                setSelectedImage(null);
+                if (swiperRef.current?.swiper) {
+                    swiperRef.current.swiper.allowSlideNext = true;
+                    swiperRef.current.swiper.allowSlidePrev = true;
+                    swiperRef.current.swiper.autoplay.start();
+                }
+            },
+        });
+
+        setCurrentIndex(index);
+        setSelectedImage(updateImageModal(index));
+    };
+
     return (
         <article className="w-full flex flex-col items-center justify-between rounded-2xl border border-solid border-dark bg-light p-6 relative dark:bg-dark dark:text-light dark:border-light xs:p-4">
             <div className="absolute top-0 -right-3 -z-10 w-[100.8%] h-[102.5%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light md:-right-2 md:w-[99.8%] md:h-[101.5%] md:rounded-[1.5rem]" />
 
+            <span className="w-full text-primary font-medium text-xl dark:text-primaryDark lg:text-lg md:text-base mb-4">
+                {title}
+            </span>
+
             <Swiper
+                ref={swiperRef}
                 modules={[Autoplay, Pagination, Navigation]}
                 pagination={{ clickable: true }}
                 navigation
@@ -184,12 +316,15 @@ const CertificateSeries = ({ title, certificates, setSelectedImage }) => {
                 className="w-full cursor-pointer overflow-hidden rounded-lg"
                 spaceBetween={30}
                 slidesPerView={1}
+                onSwiper={(swiper) => {
+                    // Store swiper instance
+                    swiperRef.current = { swiper };
+                }}
             >
                 {certificates.map((cert, index) => (
                     <SwiperSlide key={index}>
-                        <Link
-                            href={cert.link}
-                            target="_blank"
+                        <div
+                            onClick={() => handleImageClick(index)}
                             className="w-full cursor-pointer overflow-hidden rounded-lg"
                         >
                             <FramerImage
@@ -201,16 +336,23 @@ const CertificateSeries = ({ title, certificates, setSelectedImage }) => {
                                 priority
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                             />
-                        </Link>
+                        </div>
+                        <div className="w-full flex flex-col items-start justify-between mt-4">
+                            <h2 className="my-2 w-full text-left text-2xl font-bold lg:text-xl md:text-lg">
+                                {cert.title}
+                            </h2>
+                            {cert.issuer && (
+                                <p className="text-primary dark:text-primaryDark text-lg md:text-base">
+                                    {cert.issuer}
+                                </p>
+                            )}
+                            <p className="text-dark dark:text-light text-sm">
+                                {cert.date}
+                            </p>
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>
-
-            <div className="w-full flex flex-col items-start justify-between mt-4">
-                <span className="text-primary font-medium text-xl dark:text-primaryDark lg:text-lg md:text-base">
-                    {title}
-                </span>
-            </div>
         </article>
     );
 };
@@ -218,22 +360,31 @@ const CertificateSeries = ({ title, certificates, setSelectedImage }) => {
 const Certificates = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
-    // Add useEffect to handle body scroll locking
+    // Combine and sort certificates and certificate series
+    const sortedCertificates = [...certificates, ...certificateSeries].sort(
+        (a, b) => {
+            // For certificate series, use the most recent date
+            const dateA = Array.isArray(a.certificates)
+                ? Math.max(...a.certificates.map((cert) => new Date(cert.date)))
+                : new Date(a.date);
+            const dateB = Array.isArray(b.certificates)
+                ? Math.max(...b.certificates.map((cert) => new Date(cert.date)))
+                : new Date(b.date);
+            return dateB - dateA; // Sort in descending order (newest first)
+        }
+    );
+
     useEffect(() => {
         if (selectedImage) {
-            // Lock scrolling
             document.body.style.overflow = "hidden";
-            // Add padding to prevent content shift when scrollbar disappears
             document.body.style.paddingRight = `${
                 window.innerWidth - document.documentElement.clientWidth
             }px`;
         } else {
-            // Restore scrolling
             document.body.style.overflow = "";
             document.body.style.paddingRight = "";
         }
 
-        // Cleanup function
         return () => {
             document.body.style.overflow = "";
             document.body.style.paddingRight = "";
@@ -258,21 +409,22 @@ const Certificates = () => {
                     />
 
                     <div className="grid grid-cols-2 gap-12 lg:gap-8 md:grid-cols-1">
-                        {certificates.map((cert, index) => (
-                            <Certificate
-                                key={index}
-                                {...cert}
-                                setSelectedImage={setSelectedImage}
-                            />
-                        ))}
-
-                        {certificateSeries.map((series, index) => (
-                            <CertificateSeries
-                                key={index}
-                                {...series}
-                                setSelectedImage={setSelectedImage}
-                            />
-                        ))}
+                        {sortedCertificates.map((cert, index) =>
+                            Array.isArray(cert.certificates) ? (
+                                <CertificateSeries
+                                    key={index}
+                                    title={cert.title}
+                                    certificates={cert.certificates}
+                                    setSelectedImage={setSelectedImage}
+                                />
+                            ) : (
+                                <Certificate
+                                    key={index}
+                                    {...cert}
+                                    setSelectedImage={setSelectedImage}
+                                />
+                            )
+                        )}
                     </div>
 
                     <AnimatedText
@@ -295,9 +447,15 @@ const Certificates = () => {
                 <ImageModal
                     image={selectedImage.src}
                     title={selectedImage.title}
+                    seriesTitle={selectedImage.seriesTitle}
                     issuer={selectedImage.issuer}
                     date={selectedImage.date}
-                    onClose={() => setSelectedImage(null)}
+                    onClose={
+                        selectedImage.onClose || (() => setSelectedImage(null))
+                    }
+                    onNext={selectedImage.onNext}
+                    onPrev={selectedImage.onPrev}
+                    hasNavigation={selectedImage.hasNavigation}
                 />
             )}
         </>
