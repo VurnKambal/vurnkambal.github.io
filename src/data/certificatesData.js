@@ -164,26 +164,26 @@ export const certificateSeries = [
         title: "Tahak Tech Series",
         certificates: [
             {
-                title: "Tahak Tech",
-                date: "September 2023",
+                title: "Day 1",
+                date: "September 07, 2023",
                 img: tahakTech1,
                 link: "#",
             },
             {
-                title: "Tahak Tech",
-                date: "September 2023",
+                title: "Day 2",
+                date: "September 09, 2023",
                 img: tahakTech2,
                 link: "#",
             },
             {
-                title: "Tahak Tech",
-                date: "September 2023",
+                title: "Day 3",
+                date: "September 14, 2023",
                 img: tahakTech3,
                 link: "#",
             },
             {
-                title: "Tahak Tech",
-                date: "September 2023",
+                title: "Day 4",
+                date: "September 16, 2023",
                 img: tahakTech4,
                 link: "#",
             },
@@ -193,19 +193,19 @@ export const certificateSeries = [
         title: "TaraML Workshop Series",
         certificates: [
             {
-                title: "TaraML Workshop",
+                title: "Day 1",
                 date: "December 03, 2022",
                 img: taraML1,
                 link: "#",
             },
             {
-                title: "TaraML Workshop",
+                title: "Day 2",
                 date: "December 07, 2022",
                 img: taraML2,
                 link: "#",
             },
             {
-                title: "TaraML Workshop",
+                title: "Day 3",
                 date: "December 11, 2022",
                 img: taraML3,
                 link: "#",
