@@ -56,15 +56,16 @@ const about = () => {
                             </h2>
                             <p className="font-medium">
                                 As a Bachelor of Science in Computer Science
-                                student at Holy Angel University, I have
-                                consistently earned recognition as a Dean&apos;s
-                                and President&apos;s Lister. My passion for Game
-                                Development and Artificial Intelligence drives
-                                me to innovate and contribute to transformative
-                                technologies. While Game Development was not
-                                part of my curriculum, I pursued it
-                                independently, honing my skills with tools like
-                                Unreal Engine and Unity.
+                                Graduate, Magna Cum Laude from Holy Angel
+                                University, I have consistently earned recognition
+                                as a Dean&apos;s and President&apos;s Lister.
+                                My passion for Game Development and Artificial
+                                Intelligence drives me to innovate and contribute
+                                to transformative technologies. Although Game
+                                Development was not part of my formal curriculum,
+                                I pursued it independently, developing proficiency in
+                                tools such as Python and the Unreal Editor for Fortnite
+                                to bring interactive and engaging experiences to life.
                             </p>
                             <p className="font-medium my-4">
                                 Notable projects include Angelite Forecast, a
