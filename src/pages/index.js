@@ -46,7 +46,7 @@ export default function Home() {
                                 "
                             />
                             <p className="my-4 text-base font-medium md:text-sm sm:text-xs">
-                                A passionate 4th-year Computer Science student
+                                A passionate Computer Science Graduate
                                 specializing in Game Development and Machine
                                 Learning, committed to creating innovative
                                 solutions and continuously improving technical
