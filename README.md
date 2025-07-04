@@ -34,7 +34,7 @@ I’ve earned **7+ digital badges** and multiple certifications in:
 - Cloud Computing (AWS Academy)  
 - Blockchain Development (Independent)
 
-🏆 **Top scorer** in Capture The Flag and finalist in **LOOP's Code to Death** contest.
+🏆 **Top scorer** in **CSIA's Capture The Flag** and champion in **LOOP's Code to Death** contest.
 
 ---
 
@@ -42,7 +42,7 @@ I’ve earned **7+ digital badges** and multiple certifications in:
 
 - **Frontend:** Next.js, React, Tailwind CSS, Framer Motion, Swiper
 - **Backend (in projects):** Node.js, MongoDB (DocumentDB), Hardhat
-- **Languages:** TypeScript, JavaScript, Python
+- **Languages:** TypeScript, JavaScript, Python, Verse
 - **Other Tools:** Git, GitHub, IPFS, MetaMask, Lightbox
 
 ---
